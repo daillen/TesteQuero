@@ -1,5 +1,5 @@
 class Aluno < ApplicationRecord
-  self.primary_key = :id
+  has_many :matriculas
 
   validates :nome, presence: true, uniqueness: {case_sensitive: false}
   validates :cpf, presence: true, uniqueness: true, numericality: true
