@@ -1,6 +1,4 @@
 class Matricula < ApplicationRecord
-  self.primary_key = :id
-
   belongs_to :instituicao
   belongs_to :aluno
 
@@ -12,6 +10,4 @@ class Matricula < ApplicationRecord
             numericality: {greater_than_or_equal_to: 1,
                            less_than_or_equal_to: 31}
   validates :curso, presence: true
-  validates :instituicao_id, presence: true
-  validates :aluno_id, presence: true
 end

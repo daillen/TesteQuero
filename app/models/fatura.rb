@@ -1,11 +1,13 @@
 class Fatura < ApplicationRecord
-  self.primary_key = :id
+  after_initialize :set_defaults
+
+  def set_defaults
+    @status ||= "Aberta"
+  end
 
   belongs_to :matricula
 
-  validates :valor, presence: true
+  validates :valor, presence: true, numericality: {greater_than: 0}
   validates :vencimento, presence: true
-  validates :matricula_id, presence: true
-  validates :status, presence: true,
-            inclusion: {in: %w('Aberta', 'Atrasada', 'Paga')}, default: 'Aberta'
+  validates :status, presence: true, inclusion: %w(Aberta Atrasada Paga)
 end
