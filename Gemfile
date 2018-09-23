@@ -40,9 +40,7 @@ end
 # Test suite
 group :test do
   gem 'faker'
-  gem 'capybara'
-  gem 'guard-rspec'
-  gem 'launchy'
+  gem 'shoulda-matchers'
   gem 'database_cleaner'
 end
 
