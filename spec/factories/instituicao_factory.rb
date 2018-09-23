@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :instituicao do
-    nome { Faker::OnePiece.location }
+    sequence(:nome) { |n| "Instituicao_#{n}-#{Faker::OnePiece.quote}" }
     cnpj { Faker::Number.number(14) }
     tipo { %w(Universidade Escola Creche).sample }
   end
