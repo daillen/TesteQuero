@@ -1,65 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Aluno, :type => :model do
-  subject {described_class.new(nome: 'AlunoTeste',
-                               cpf: '123456789',
-                               genero: 'M',
-                               pagamento: "Boleto")}
-
   it "is valid with valid attributes" do
-    expect(subject).to be_valid
+    aluno = create :aluno
+    expect(aluno).to be_valid
   end
 
-  it "is not valid without a nome" do
-    subject.nome = nil
-    expect(subject).to_not be_valid
-  end
-
-  it "is not valid without a cpf" do
-    subject.cpf = nil
-    expect(subject).to_not be_valid
-  end
-
-  it "is not valid with a cpf which is not numeric" do
-    subject.cpf = 'invalid'
-    expect(subject).to_not be_valid
-
-    subject.cpf = '123.456.789-10'
-    expect(subject).to_not be_valid
-
-    subject.cpf = '123456789 testing'
-    expect(subject).to_not be_valid
-  end
-
-  it "is not valid without a genero" do
-    subject.genero = nil
-    expect(subject).to_not be_valid
-  end
-
-  it "is not valid with an unvalid genero" do
-    subject.genero = 'male'
-    expect(subject).to_not be_valid
-
-    subject.genero = 'female'
-    expect(subject).to_not be_valid
-
-    subject.genero = 'm'
-    expect(subject).to_not be_valid
-  end
-
-  it "is not valid without a pagamento" do
-    subject.pagamento = nil
-    expect(subject).to_not be_valid
-  end
-
-  it "is not valid with an unvalid pagamento" do
-    subject.pagamento = 'dinheiro'
-    expect(subject).to_not be_valid
-
-    subject.pagamento = 'boleto'
-    expect(subject).to_not be_valid
-
-    subject.pagamento = 'Cartao'
-    expect(subject).to_not be_valid
+  context "validations" do
+    it { is_expected.to validate_presence_of :nome }
+    it { is_expected.to validate_uniqueness_of(:nome).case_insensitive }
+    it { is_expected.to validate_presence_of :cpf }
+    it { is_expected.to validate_uniqueness_of :cpf }
+    it { is_expected.to validate_numericality_of :cpf }
+    it { is_expected.to validate_presence_of :genero }
+    it { is_expected.to validate_inclusion_of(:genero).in_array(%w(M F)) }
+    it { is_expected.to validate_presence_of :pagamento }
+    it { is_expected.to validate_inclusion_of(:pagamento).in_array(%w(Boleto Cartão)) }
   end
 end
