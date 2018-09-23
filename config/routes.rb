@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   # Routes for matriculas
 
   # Routes for faturas
+  get "/faturas" => "faturas#index"
+  get "/faturas/:id" => "faturas#show"
 end
