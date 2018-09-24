@@ -20,8 +20,7 @@ class AlunosController < ApplicationController
                        celular: new_aluno["celular"],
                        genero: new_aluno["genero"],
                        pagamento: new_aluno["pagamento"])
-    if @aluno.valid?
-      @aluno.save
+    if @aluno.save
       render json: @aluno, status: :ok
     else
       render json: {

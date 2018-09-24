@@ -17,8 +17,7 @@ class InstituicaosController < ApplicationController
     @instituicao = Instituicao.new(nome: new_instituicao["nome"],
                                    cnpj: new_instituicao["cnpj"],
                                    tipo: new_instituicao["tipo"])
-    if @instituicao.valid?
-      @instituicao.save
+    if @instituicao.save
       render json: @instituicao, status: :ok
     else
       render json: {
