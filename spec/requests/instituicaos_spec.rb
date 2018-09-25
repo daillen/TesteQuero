@@ -19,8 +19,11 @@ end
 
 RSpec.describe "POST /instituicaos", type: :request do
   before { @instituicao = build :instituicao }
+  let (:param) { { instituicao: @instituicao.serializable_hash } }
 
   it "creates a new instituicao" do
-    expect { post "/instituicaos", params: @instituicao.to_json }.to change(Instituicao, :count).by 1
+    expect { post "/instituicaos", params: param.to_json,
+                  headers: { CONTENT_TYPE: "application/json" }
+    }.to change(Instituicao, :count).by 1
   end
 end

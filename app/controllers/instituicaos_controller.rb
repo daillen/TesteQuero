@@ -13,7 +13,7 @@ class InstituicaosController < ApplicationController
   end
 
   def create
-    @instituicao = Instituicao.new(JSON.parse(request.body.read))
+    @instituicao = Instituicao.new(get_params)
     if @instituicao.save
       render json: @instituicao, status: :ok
     else
@@ -22,4 +22,10 @@ class InstituicaosController < ApplicationController
       }, status: :unprocessable_entity
     end
   end
+
+  private
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def get_params
+      params.require(:instituicao).permit(:nome, :cnpj, :tipo)
+    end
 end

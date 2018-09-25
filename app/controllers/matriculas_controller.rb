@@ -13,7 +13,7 @@ class MatriculasController < ApplicationController
   end
 
   def create
-    @matricula = Matricula.new(JSON.parse(request.body.read))
+    @matricula = Matricula.new(get_params)
     if @matricula.save
       today = Date.today
       vencimento = Date.new(today.year, today.month, @matricula.vencimento_faturas)
@@ -38,4 +38,15 @@ class MatriculasController < ApplicationController
       }, status: :unprocessable_entity
     end
   end
+
+  private
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def get_params
+      params.require(:matricula).permit(:valor_total,
+                                        :qtd_faturas,
+                                        :vencimento_faturas,
+                                        :curso,
+                                        :instituicao_id,
+                                        :aluno_id)
+    end
 end

@@ -13,7 +13,7 @@ class AlunosController < ApplicationController
   end
 
   def create
-    @aluno = Aluno.new(JSON.parse(request.body.read))
+    @aluno = Aluno.new(get_params)
     if @aluno.save
       render json: @aluno, status: :ok
     else
@@ -21,5 +21,17 @@ class AlunosController < ApplicationController
           error: @aluno.errors.full_messages
       }, status: :unprocessable_entity
     end
+  end
+
+  private
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def get_params
+    params.require(:aluno).permit(:nome,
+                                  :cpf,
+                                  :email,
+                                  :nascimento,
+                                  :celular,
+                                  :genero,
+                                  :pagamento)
   end
 end
