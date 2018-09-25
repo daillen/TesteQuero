@@ -16,5 +16,8 @@ RSpec.describe Aluno, :type => :model do
     it { is_expected.to validate_inclusion_of(:genero).in_array(%w(M F)) }
     it { is_expected.to validate_presence_of :pagamento }
     it { is_expected.to validate_inclusion_of(:pagamento).in_array(%w(Boleto Cartão)) }
+    it { is_expected.to validate_presence_of :email }
+    it { is_expected.to allow_value("email@teste.com").for(:email) }
+    it { is_expected.to_not allow_value("teste.com").for(:email) }
   end
 end

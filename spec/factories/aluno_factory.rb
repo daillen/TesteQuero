@@ -6,5 +6,6 @@ FactoryBot.define do
       celular { Faker::Number.number(8) }
       genero { %w(M F).sample }
       pagamento { %w(Boleto Cartão).sample }
+      email { Faker::Internet.email }
   end
 end
