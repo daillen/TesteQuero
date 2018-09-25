@@ -13,18 +13,12 @@ class AlunosController < ApplicationController
   end
 
   def create
-    new_aluno = JSON.parse(request.body.read)
-    @aluno = Aluno.new(nome: new_aluno["nome"],
-                       cpf: new_aluno["cpf"],
-                       nascimento: new_aluno["nascimento"],
-                       celular: new_aluno["celular"],
-                       genero: new_aluno["genero"],
-                       pagamento: new_aluno["pagamento"])
+    @aluno = Aluno.new(JSON.parse(request.body.read))
     if @aluno.save
       render json: @aluno, status: :ok
     else
       render json: {
-          error: "Given aluno is not a valid one!"
+          error: @aluno.errors.full_messages
       }, status: :not_acceptable
     end
   end

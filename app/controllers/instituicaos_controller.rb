@@ -13,15 +13,12 @@ class InstituicaosController < ApplicationController
   end
 
   def create
-    new_instituicao = JSON.parse(request.body.read)
-    @instituicao = Instituicao.new(nome: new_instituicao["nome"],
-                                   cnpj: new_instituicao["cnpj"],
-                                   tipo: new_instituicao["tipo"])
+    @instituicao = Instituicao.new(JSON.parse(request.body.read))
     if @instituicao.save
       render json: @instituicao, status: :ok
     else
       render json: {
-          error: "Given instituicao is not a valid one!"
+          error: @instituicao.errors.full_messages
       }, status: :not_acceptable
     end
   end

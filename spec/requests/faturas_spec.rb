@@ -10,7 +10,7 @@ RSpec.describe "GET /faturas", type: :request do
   end
 
   it "returns a fatura with given id" do
-    id = fatura.last.id
+    id = Fatura.last.id
     get "/faturas/#{id}"
     body = JSON.parse(response.body)
     expect(body['id']).to eq id
