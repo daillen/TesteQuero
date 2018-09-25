@@ -19,7 +19,7 @@ class AlunosController < ApplicationController
     else
       render json: {
           error: @aluno.errors.full_messages
-      }, status: :not_acceptable
+      }, status: :unprocessable_entity
     end
   end
 end

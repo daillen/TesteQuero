@@ -19,7 +19,7 @@ class InstituicaosController < ApplicationController
     else
       render json: {
           error: @instituicao.errors.full_messages
-      }, status: :not_acceptable
+      }, status: :unprocessable_entity
     end
   end
 end

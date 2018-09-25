@@ -35,7 +35,7 @@ class MatriculasController < ApplicationController
     else
       render json: {
           error: @matricula.errors.full_messages
-      }, status: :not_acceptable
+      }, status: :unprocessable_entity
     end
   end
 end
