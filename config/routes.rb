@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   post "/instituicaos" => "instituicaos#create"
 
   # Routes for matriculas
+  get "/matriculas" => "matriculas#index"
+  get "/matriculas/:id" => "matriculas#show"
+  post "/matriculas" => "matriculas#create"
 
   # Routes for faturas
   get "/faturas" => "faturas#index"
