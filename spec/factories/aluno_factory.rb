@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :aluno do
-      nome { Faker::Name.first_name }
+      sequence(:nome) { |n| "Aluno_#{n}" }
       cpf { Faker::Number.number(11) }
       nascimento { Faker::Date.birthday(16, 65) }
       celular { Faker::Number.number(8) }
