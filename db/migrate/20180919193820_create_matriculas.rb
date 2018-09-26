@@ -1,7 +1,7 @@
 class CreateMatriculas < ActiveRecord::Migration[5.2]
   def change
     create_table :matriculas do |t|
-      t.decimal :valor_total, scale: 2
+      t.decimal :valor_total
       t.integer :qtd_faturas
       t.integer :vencimento_faturas
       t.text :curso
