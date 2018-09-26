@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_25_205657) do
+ActiveRecord::Schema.define(version: 2018_09_26_011107) do
 
   create_table "alunos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2018_09_25_205657) do
   end
 
   create_table "faturas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.decimal "valor", precision: 10
+    t.decimal "valor", precision: 11, scale: 2
     t.date "vencimento"
     t.bigint "matricula_id"
     t.string "status", default: "Aberta"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2018_09_25_205657) do
   end
 
   create_table "matriculas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.decimal "valor_total", precision: 10
+    t.decimal "valor_total", precision: 11, scale: 2
     t.integer "qtd_faturas"
     t.integer "vencimento_faturas"
     t.string "curso"
