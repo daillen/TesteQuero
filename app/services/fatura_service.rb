@@ -9,9 +9,11 @@ class FaturaService
   attr_writer :valor_total, :qtd_faturas, :dia_vencimento
 
   def create_faturas
+    vencimentos = get_vencimentos(Date.today)
+
     @qtd_faturas.times.collect do
       Fatura.new(valor: get_valor_per_fatura,
-                 vencimento: get_vencimentos(Date.today).next,
+                 vencimento: vencimentos.next,
                  matricula_id: @matricula_id)
     end
   end
