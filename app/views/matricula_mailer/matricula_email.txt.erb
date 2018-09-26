@@ -1,0 +1,14 @@
+Parabens <%= @matricula.aluno.nome %> !!!
+------------------------------------------------------
+
+Sua matricula na instituicao <%= @matricula.instituicao.nome %> foi concluida com sucesso!
+O curso em que se inscreveu foi <%= @matricula.curso %>.
+
+Sua matricula foi dividida em <%= @matricula.qtd_faturas %> faturas:
+Data de vencimento      Valor
+<% @matricula.faturas.each do |fatura| %>
+  <%= fatura.vencimento %>      <%= fatura.valor %>
+<% end %>
+
+Boa sorte na sua nova jornada!!
+Billinho

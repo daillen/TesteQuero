@@ -30,9 +30,11 @@ class MatriculasController < ApplicationController
           # If a fatura fails to save, the matricula must be removed from the
           # database
           @matricula.delete
-          break
+          return
         end
       end
+
+      MatriculaMailer.matricula_email(@matricula).deliver_now
 
       render json: @matricula, status: :ok
     else

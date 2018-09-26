@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Parabéns <%= @matricula.aluno.nome %> !!!</h1>
+    <p>
+      Sua matrícula na instituição <%= @matricula.instituicao.nome %> foi concluída com
+      sucesso!<br>
+      O curso em que se inscreveu é <%= @matricula.curso %>.
+    </p>
+    <p>
+      Sua matrícula foi dividida em <%= @matricula.qtd_faturas %> faturas:<br>
+    </p>
+    <table>
+      <tr>
+        <td>Data de vencimento</td>
+        <td>Valor</td>
+      </tr>
+      <% @matricula.faturas.each do |fatura| %>
+        <tr>
+          <td><%= fatura.vencimento %><td>
+          <td><%= fatura.valor %></td>
+        </tr>
+      <% end %>
+    </table>
+    <p>Boa sorte na sua nova jornada!!</p>
+    <p><b>Billinho</b></p>
+  </body>
+</html>
