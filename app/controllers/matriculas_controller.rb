@@ -15,20 +15,23 @@ class MatriculasController < ApplicationController
   def create
     @matricula = Matricula.new(get_params)
     if @matricula.save
-      today = Date.today
-      vencimento = Date.new(today.year, today.month, @matricula.vencimento_faturas)
+      fatura_service = FaturaService.new(
+          dia_vencimento: @matricula.vencimento_faturas,
+          valor_total: @matricula.valor_total,
+          qtd_faturas: @matricula.qtd_faturas,
+          matricula_id: @matricula.id
+      )
 
-      if vencimento > today
-        vencimento = vencimento.next_month
-      end
-
-      valor_per_fatura = @matricula.valor_total / @matricula.qtd_faturas
-
-      @matricula.qtd_faturas.times do
-        Fatura.create(valor: valor_per_fatura,
-                      vencimento: vencimento,
-                      matricula: @matricula)
-        vencimento = vencimento.next_month
+      fatura_service.create_faturas.each do |fatura|
+        unless fatura.save
+          render json: {
+              error: fatura.errors.full_messages
+          }, status: :unprocessable_entity
+          # If a fatura fails to save, the matricula must be removed from the
+          # database
+          @matricula.delete
+          break
+        end
       end
 
       render json: @matricula, status: :ok
